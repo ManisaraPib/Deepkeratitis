@@ -3,17 +3,12 @@
     <div class="fs-3 fw-bolder text-center mb-4">Contact us</div>
     <div><input type="text" placeholder="Name" v-model="form.name" /></div>
     <div>
-      <input
-        type="email"
-        placeholder="Email"
-        v-model="form.email"
-        :class="{ 'red-border': wrongEmail }"
-      />
+      <input type="email" placeholder="Email" v-model="form.email" :class="{ 'red-border': wrongEmail }" />
     </div>
     <div>
       <textarea placeholder="Message" v-model="form.message"></textarea>
     </div>
-    <div>
+    <div class="mb-5">
       <button class="submit-button" @click="sendMessage">
         <div v-if="!sending">
           {{ textButton }}
@@ -94,26 +89,29 @@ export default {
 <style scoped>
 input,
 textarea {
-  width: 350px;
-  height: 35px;
+  width: 500px;
+  height: 50px;
   padding: 20px;
   margin-bottom: 15px;
   border: none;
   background-color: rgb(245, 245, 245);
+  border-radius: 10px;
 }
 
 textarea {
   padding-top: 10px;
-  height: 85px;
+  height: 150px;
 }
+
 .my-box {
-  width: 350px;
+  width: 500px;
   margin: auto;
+  margin-top: 30px;
 }
 
 .submit-button {
   height: 45px;
-  width: 350px;
+  width: 500px;
   color: white;
   background-color: #555555;
   border: none;
@@ -134,6 +132,7 @@ textarea {
   width: 80px;
   height: 80px;
 }
+
 .lds-ellipsis div {
   position: absolute;
   top: 17px;
@@ -143,42 +142,52 @@ textarea {
   background: #fff;
   animation-timing-function: cubic-bezier(0, 1, 1, 0);
 }
+
 .lds-ellipsis div:nth-child(1) {
   left: 8px;
   animation: lds-ellipsis1 0.6s infinite;
 }
+
 .lds-ellipsis div:nth-child(2) {
   left: 8px;
   animation: lds-ellipsis2 0.6s infinite;
 }
+
 .lds-ellipsis div:nth-child(3) {
   left: 32px;
   animation: lds-ellipsis2 0.6s infinite;
 }
+
 .lds-ellipsis div:nth-child(4) {
   left: 56px;
   animation: lds-ellipsis3 0.6s infinite;
 }
+
 @keyframes lds-ellipsis1 {
   0% {
     transform: scale(0);
   }
+
   100% {
     transform: scale(1);
   }
 }
+
 @keyframes lds-ellipsis3 {
   0% {
     transform: scale(1);
   }
+
   100% {
     transform: scale(0);
   }
 }
+
 @keyframes lds-ellipsis2 {
   0% {
     transform: translate(0, 0);
   }
+
   100% {
     transform: translate(24px, 0);
   }

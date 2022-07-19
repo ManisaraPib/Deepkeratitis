@@ -126,7 +126,7 @@ export default {
         fd.append("image", this.fileUpLoad, this.fileUpLoad.name);
         this.predicting = true;
         axios
-          .post("http://127.0.0.1:8000/upload", fd, { //Nest 8000, Flask 5000
+          .post("http://127.0.0.1:5000/upload", fd, { //Nest 8000, Flask 5000
             // http://localhost:5000/upload
             PredictProgress: (uploadEvent) => {
               console.log(

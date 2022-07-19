@@ -54,9 +54,9 @@
 </template>
 
 <script>
-import TextContent from "@/components/TextContent.vue";
+import TextContent from "../components/TextContent.vue";
 import NavBar from "../components/NavBar.vue";
-import ImageShow from "@/components/ImageShow.vue";
+import ImageShow from "../components/ImageShow.vue";
 
 export default {
   components: { NavBar, TextContent, ImageShow },
