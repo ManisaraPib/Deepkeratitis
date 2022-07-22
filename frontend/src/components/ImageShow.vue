@@ -3,28 +3,15 @@
     <div class="fs-5 fw-light text-dark text-box mb-2">
       Select image to upload and press predict :
     </div>
-    <div
-      class="dropzone"
-      :class="{ 'drop-active': drag }"
-      @dragenter.prevent="active"
-      @dragleave.prevent="active"
-      @dragover.prevent
-      @drop.prevent="onFileDrop"
-    >
+    <div class="dropzone" :class="{ 'drop-active': drag }" @dragenter.prevent="active" @dragleave.prevent="active"
+      @dragover.prevent @drop.prevent="onFileDrop">
       <div v-if="!this.haveImg">
         <div class="browse-img">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="40"
-            height="60"
-            fill="currentColor"
-            class="bi bi-image"
-            viewBox="0 0 16 16"
-          >
+          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="60" fill="currentColor" class="bi bi-image"
+            viewBox="0 0 16 16">
             <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
             <path
-              d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"
-            />
+              d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z" />
           </svg>
         </div>
         <div>
@@ -43,18 +30,10 @@
         <button class="predict-button" @click="Predict">
           <div v-if="!predicting">
             Predict
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              fill="white"
-              class="bi bi-arrow-right-short"
-              viewBox="0 0.5 16 16"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-              />
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" class="bi bi-arrow-right-short"
+              viewBox="0 0.5 16 16">
+              <path fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
             </svg>
           </div>
           <div v-else>
@@ -131,8 +110,8 @@ export default {
             PredictProgress: (uploadEvent) => {
               console.log(
                 "Predict Progress: " +
-                  Math.round((uploadEvent.loaded / uploadEvent.total) * 100) +
-                  "%"
+                Math.round((uploadEvent.loaded / uploadEvent.total) * 100) +
+                "%"
               );
             },
           })
@@ -166,6 +145,7 @@ export default {
 .text-box {
   margin-left: 18%;
 }
+
 .dropzone {
   border: 1px dashed black;
   width: 65%;
@@ -206,6 +186,7 @@ export default {
   width: 150px;
   margin: auto;
 }
+
 .predict-button {
   height: 45px;
   width: 120px;
@@ -250,6 +231,7 @@ export default {
   width: 80px;
   height: 80px;
 }
+
 .lds-ellipsis div {
   position: absolute;
   top: 17px;
@@ -259,42 +241,52 @@ export default {
   background: #fff;
   animation-timing-function: cubic-bezier(0, 1, 1, 0);
 }
+
 .lds-ellipsis div:nth-child(1) {
   left: 8px;
   animation: lds-ellipsis1 0.6s infinite;
 }
+
 .lds-ellipsis div:nth-child(2) {
   left: 8px;
   animation: lds-ellipsis2 0.6s infinite;
 }
+
 .lds-ellipsis div:nth-child(3) {
   left: 32px;
   animation: lds-ellipsis2 0.6s infinite;
 }
+
 .lds-ellipsis div:nth-child(4) {
   left: 56px;
   animation: lds-ellipsis3 0.6s infinite;
 }
+
 @keyframes lds-ellipsis1 {
   0% {
     transform: scale(0);
   }
+
   100% {
     transform: scale(1);
   }
 }
+
 @keyframes lds-ellipsis3 {
   0% {
     transform: scale(1);
   }
+
   100% {
     transform: scale(0);
   }
 }
+
 @keyframes lds-ellipsis2 {
   0% {
     transform: translate(0, 0);
   }
+
   100% {
     transform: translate(24px, 0);
   }
