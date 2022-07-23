@@ -33,7 +33,7 @@
           <img src="../image/tt.png" class="image rounded img-fluid rounded-circle mt-2" />
           <div class="name-team">
             <h5 class="mb-2 mt-3 fw-bold fs-5">Chanakarn Rungnisakorn</h5>
-            <p class="mb-4 text-muted fw-light fs-6">Data Modelling Analyst</p>
+            <p class="mb-4 text-muted fw-light fs-6">Data Modeling Analyst</p>
           </div>
         </div>
       </div>
