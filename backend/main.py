@@ -11,7 +11,7 @@ import uuid
 
 app = Flask(__name__)
 api= Api(app)
-UPLOAD_FOLDER = "./img"
+UPLOAD_FOLDER = "./img" #Image uploaded destination
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 CORS(app)
 CORS(app, resources={r'/*': {'origins': '*'}},CORS_SUPPORTS_CREDENTIALS = True)
@@ -32,7 +32,7 @@ def upload_file():
         file1 = request.files['file1']
         path = os.path.join(app.config['UPLOAD_FOLDER'], file1.filename)
         file1.save(path)
-        print(path)
+        print(path) # Print image path
         return path
     return "Upload success"
 
