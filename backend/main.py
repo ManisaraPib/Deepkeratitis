@@ -6,12 +6,13 @@ from flask_restful import Api,Resource,abort
 from flask import Flask, request,jsonify,json
 from flask_cors import CORS, cross_origin
 from flask import send_file
+import os
 import uuid
 #from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 api= Api(app)
-UPLOAD_FOLDER = "./img" #Image uploaded destination
+UPLOAD_FOLDER = "backend/img"
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 CORS(app)
 CORS(app, resources={r'/*': {'origins': '*'}},CORS_SUPPORTS_CREDENTIALS = True)
@@ -26,15 +27,17 @@ def Hi():
 #Upload function
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
+    print("uploading...")
     if request.method == 'POST':
-        if 'file1' not in request.files:
-            return 'there is no file1 in form!'
-        file1 = request.files['file1']
+        # if 'dropzonefile' not in request.files:
+        #     print ('there is no file from "dropzonefile"')
+        #     return
+        file1 = request.files["image"]
         path = os.path.join(app.config['UPLOAD_FOLDER'], file1.filename)
         file1.save(path)
-        print(path) # Print image path
+        print(path)
         return path
-    return "Upload success"
+    return 
 
 # #send result back
 # @app.route("/upload", methods=["POST","GET"])
@@ -51,27 +54,27 @@ def upload_file():
 
 
 # api model
-@app.route("/dkmodel", methods=['Post']) #post date mean send data, get some value back, GET is get data without sending any request
-def DK_prediction(): #data will be send to this end point/DK_prediction
-    content = request.json #get data that send to DK_prediction
-    errors = []
-    for name in content: # name = data in content
-        if name in DK_model: #model = name of the data in model
-          predict_DK = DK_model[name]['pathogen'] #from the name, want to get pathogen
-          value = content[name]
-     #if len(errors)<1:   
-        prediction = model.predict(x) #x is the variable of the content data # will be define
-        DK_patho = float(prediction[0])
-        response = {"result": str(uuid.uuid4()), "DK_result" :DK_patho, "errors": errors } #if model work
-    else: 
-        response = {"result": str(uuid.uuid4()), "errors": errors } #if model doesnt work
-    #response in 2 possibility
-    return jsonify(response) #reponse in json file to send back to the person who send the request 
+# @app.route("/dkmodel", methods=['Post']) #post date mean send data, get some value back, GET is get data without sending any request
+# def DK_prediction(): #data will be send to this end point/DK_prediction
+#     content = request.json #get data that send to DK_prediction
+#     errors = []
+#     for name in content: # name = data in content
+#         if name in DK_model: #model = name of the data in model
+#           predict_DK = DK_model[name]['pathogen'] #from the name, want to get pathogen
+#           value = content[name]
+#      #if len(errors)<1:   
+#         prediction = model.predict(x) #x is the variable of the content data # will be define
+#         DK_patho = float(prediction[0])
+#         response = {"result": str(uuid.uuid4()), "DK_result" :DK_patho, "errors": errors } #if model work
+#     else: 
+#         response = {"result": str(uuid.uuid4()), "errors": errors } #if model doesnt work
+#     #response in 2 possibility
+#     return jsonify(response) #reponse in json file to send back to the person who send the request 
 
 
 # Main
 if __name__ == "__main__":
-    app.run(debug=True, use_reloader =False )
+    app.run()
 
 
 
