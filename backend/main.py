@@ -11,37 +11,43 @@ import uuid
 
 app = Flask(__name__)
 api= Api(app)
+UPLOAD_FOLDER = "./img"
+app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 CORS(app)
 CORS(app, resources={r'/*': {'origins': '*'}},CORS_SUPPORTS_CREDENTIALS = True)
 app.config['CORS_HEADERS'] = 'Content-Type'
 #model = load_model(os.path.join(os.getcwd(),"deep_keratitis.h5"))
 
-# @app.route("/". methods = ["GET"])
-# @cross_origin()
-# def getHello():
-#     return "Hello"
+#Test function
+@app.route("/test") # Define route of the function
+def Hi():
+    return "Test"
 
-#request for image
-@app.route('/get_image')
-def get_image():
-    if request.args.get('type') == '1':
-       filename = 'ok.gif'
-    else:
-       filename = 'error.gif'
-    return send_file(filename, mimetype='image/gif')
+#Upload function
+@app.route('/upload', methods=['GET', 'POST'])
+def upload_file():
+    if request.method == 'POST':
+        if 'file1' not in request.files:
+            return 'there is no file1 in form!'
+        file1 = request.files['file1']
+        path = os.path.join(app.config['UPLOAD_FOLDER'], file1.filename)
+        file1.save(path)
+        print(path)
+        return path
+    return "Upload success"
 
-#send result back
-@app.route("/upload", methods=["POST","GET"])
-def uploadImage():
-    response_object = {'status':'success'}
-    if response.method == "POST":
-        post_data = request.get_json()
-        meResult = post_data.get('meResult'),
-        file = post_data.get('file'),
-        print(meResult)
-        print(file)
-        response_object['message'] = 'Image added!'
-    return jsonify(response_object)
+# #send result back
+# @app.route("/upload", methods=["POST","GET"])
+# def uploadImage():
+#     response_object = {'status':'success'}
+#     if response.method == "POST":
+#         post_data = request.get_json()
+#         meResult = post_data.get('meResult'),
+#         file = post_data.get('file'),
+#         print(meResult)
+#         print(file)
+#         response_object['message'] = 'Image added!'
+#     return jsonify(response_object)
 
 
 # api model
@@ -62,6 +68,8 @@ def DK_prediction(): #data will be send to this end point/DK_prediction
     #response in 2 possibility
     return jsonify(response) #reponse in json file to send back to the person who send the request 
 
+
+# Main
 if __name__ == "__main__":
     app.run(debug=True, use_reloader =False )
 
