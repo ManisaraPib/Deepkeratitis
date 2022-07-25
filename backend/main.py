@@ -6,8 +6,11 @@ from flask_restful import Api,Resource,abort
 from flask import Flask, request,jsonify,json
 from flask_cors import CORS, cross_origin
 from flask import send_file
+from flask_mail import Mail, message
 import os
 import uuid
+
+from zmq import Message
 #from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -53,7 +56,10 @@ mail = Mail(app)
 def upload_file():
     print("Email sending...")
     if request.method == 'POST':
-        
+        msg = Message("Hi", sender = "", recipients = ['aasdasda@gmail.com'])
+        msg.body = "njkzndfjhgdsjkhfghsdjkf"
+        mail.send(msg)
+        return
 
     return 
 
