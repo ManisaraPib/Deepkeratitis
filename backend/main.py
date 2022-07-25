@@ -39,6 +39,24 @@ def upload_file():
         return path
     return 
 
+#Sending an email
+# configuration of mail
+app.config['MAIL_SERVER']='sirakis.ng.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = 'yourId@gmail.com'
+app.config['MAIL_PASSWORD'] = '*****'
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+mail = Mail(app)
+
+@app.route('/contact', methods=['GET', 'POST'])
+def upload_file():
+    print("Email sending...")
+    if request.method == 'POST':
+        
+
+    return 
+
 # #send result back
 # @app.route("/upload", methods=["POST","GET"])
 # def uploadImage():
