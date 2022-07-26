@@ -7,8 +7,11 @@ from flask import Flask, request,jsonify,json
 from flask_cors import CORS, cross_origin
 from flask import send_file
 from flask_mail import Mail, message
+import smtplib
 import os
 import uuid
+from grpc import server
+
 
 from zmq import Message
 #from flask_sqlalchemy import SQLAlchemy
@@ -42,26 +45,38 @@ def upload_file():
         return path
     return 
 
+@app.route('/contact', methods=['POST'])
+def contact():
+    name = request.form.get("form.name")
+    email = request.form.get("form.email")
+    message = request.form.get("form.message")
+
+    reply_message = "Your contact have been sent"
+    server = smtplib.SMTP("smtp.gmai.com", 5000)
+    server.starttls()
+    server.login("powerpufffy@gmail.com", "pufffypowerhds2")
+    server.sendmail("powerpufffy@gmail.com", email, reply_message)
+
 #Sending an email
 # configuration of mail
-app.config['MAIL_SERVER']='sirakis.ng.gmail.com'
-app.config['MAIL_PORT'] = 465
-app.config['MAIL_USERNAME'] = 'yourId@gmail.com'
-app.config['MAIL_PASSWORD'] = '*****'
-app.config['MAIL_USE_TLS'] = False
-app.config['MAIL_USE_SSL'] = True
-mail = Mail(app)
+# app.config['MAIL_SERVER']='sirakis.ng.gmail.com'
+# app.config['MAIL_PORT'] = 5000
+# #app.config['MAIL_USERNAME'] = 'yourId@gmail.com'
+# app.config['MAIL_PASSWORD'] = '*****'
+# app.config['MAIL_USE_TLS'] = False
+# app.config['MAIL_USE_SSL'] = True
+# mail = Mail(app)
 
-@app.route('/contact', methods=['GET', 'POST'])
-def upload_file():
-    print("Email sending...")
-    if request.method == 'POST':
-        msg = Message("Hi", sender = "", recipients = ['aasdasda@gmail.com'])
-        msg.body = "njkzndfjhgdsjkhfghsdjkf"
-        mail.send(msg)
-        return
+# @app.route('/contact', methods=['GET', 'POST'])
+# def upload_file():
+#     print("Email sending...")
+#     if request.method == 'POST':
+#         msg = Message("Hi", sender = "", recipients = ['aasdasda@gmail.com'])
+#         msg.body = "njkzndfjhgdsjkhfghsdjkf"
+#         mail.send(msg)
+#         return
 
-    return 
+#     return 
 
 # #send result back
 # @app.route("/upload", methods=["POST","GET"])
