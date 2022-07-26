@@ -10,7 +10,10 @@ from flask import send_file
 import smtplib
 import os
 import uuid
-from grpc import server
+#from grpc import server
+
+# Model
+# from model import ....
 
 
 from zmq import Message
@@ -42,26 +45,28 @@ def upload_file():
         path = os.path.join(app.config['UPLOAD_FOLDER'], file1.filename)
         file1.save(path)
         print(path)
-        return path
-    return 
+        # res = ModelFunction(path)
+        # return res
+        return path # If model file finish plz uncomment this and delete both of the line above
 
-@app.route('/contact', methods=['POST'])
+@app.route('/contact', methods=['GET', 'POST'])
 def contact():
-    name = request.files.form.name
-    email = request.files.form.get
-    message = request.files.form.get
-    print(str(name))
-    print(str(email))
-    print(str(message))
+    if request.method == 'POST':
+        name = request.files.form.name #receive name from front end 
+        email = request.files.form.email
+        message = request.files.form.message
+        print(str(name))
+        print(str(email))
+        print(str(message))
 
-    #reply_message = "Your contact have been sent"
-    server = smtplib.SMTP("smtp.gmail.com", 5000)
-    print("here1")
-    server.starttls()
-    print("here2")
-    server.login("powerpufffy@gmail.com", "cpjlcidxhdvxeysc")
-    server.sendmail("powerpufffy@gmail.com", email, message, name)
-    
+        #reply_message = "Your contact have been sent"
+        server = smtplib.SMTP("smtp.gmail.com", 5000)
+        print("here1")
+        server.starttls()
+        print("here2")
+        server.login("powerpufffy@gmail.com", "cpjlcidxhdvxeysc")
+        server.sendmail("powerpufffy@gmail.com", email, message, name)
+    return (log.json)
 
 # @app.route('/test', methods=['POST'])
 # def contact():
