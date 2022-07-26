@@ -58,6 +58,18 @@ def contact():
     server.sendmail("powerpufffy@gmail.com", email, reply_message)
     print ("email sent")
 
+@app.route('/contact/test', methods=['POST'])
+def contact():
+    name = request.form.get("form.name")
+    email = "chojaokun@gmail.com"
+    message = "test"
+
+    reply_message = "Your contact have been sent"
+    server = smtplib.SMTP("smtp.gmai.com", 5000)
+    server.starttls()
+    server.login("powerpufffy@gmail.com", "pufffypowerhds2")
+    server.sendmail("powerpufffy@gmail.com", email, reply_message)
+    print ("email sent")
 #Sending an email
 # configuration of mail
 # app.config['MAIL_SERVER']='sirakis.ng.gmail.com'
