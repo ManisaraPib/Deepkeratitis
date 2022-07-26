@@ -52,11 +52,11 @@ def contact():
     message = request.form.get("form.message")
 
     reply_message = "Your contact have been sent"
-    server = smtplib.SMTP("smtp.gmai.com", 5000)
+    server = smtplib.SMTP("smtp.gmail.com", 5000)
     server.starttls()
     server.login("powerpufffy@gmail.com", "pufffypowerhds2")
     server.sendmail("powerpufffy@gmail.com", email, reply_message)
-    print ("email sent")
+    
 
 @app.route('/contact/test', methods=['POST'])
 def contact():
