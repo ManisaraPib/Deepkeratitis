@@ -47,29 +47,34 @@ def upload_file():
 
 @app.route('/contact', methods=['POST'])
 def contact():
-    name = request.form.get("form.name")
-    email = request.form.get("form.email")
-    message = request.form.get("form.message")
+    name = request.files.form.name
+    email = request.files.form.get
+    message = request.files.form.get
+    print(str(name))
+    print(str(email))
+    print(str(message))
 
-    reply_message = "Your contact have been sent"
+    #reply_message = "Your contact have been sent"
     server = smtplib.SMTP("smtp.gmail.com", 5000)
+    print("here1")
     server.starttls()
-    server.login("powerpufffy@gmail.com", "pufffypowerhds2")
-    server.sendmail("powerpufffy@gmail.com", email, reply_message)
+    print("here2")
+    server.login("powerpufffy@gmail.com", "cpjlcidxhdvxeysc")
+    server.sendmail("powerpufffy@gmail.com", email, message, name)
     
 
-@app.route('/contact/test', methods=['POST'])
-def contact():
-    name = request.form.get("form.name")
-    email = "chojaokun@gmail.com"
-    message = "test"
+# @app.route('/test', methods=['POST'])
+# def contact():
+#     # name = "gutjung"
+#     # email = "chojaokun@gmail.com"
+#     # message = "test"
 
-    reply_message = "Your contact have been sent"
-    server = smtplib.SMTP("smtp.gmai.com", 5000)
-    server.starttls()
-    server.login("powerpufffy@gmail.com", "pufffypowerhds2")
-    server.sendmail("powerpufffy@gmail.com", email, reply_message)
-    print ("email sent")
+#     reply_message = "Your contact have been sent"
+#     server = smtplib.SMTP("smtp.gmai.com", 5000)
+#     server.starttls()
+#     server.login("powerpufffy@gmail.com", "pufffypowerhds2")
+#     server.sendmail("powerpufffy@gmail.com", email, reply_message)
+#     print ("email sent")
 #Sending an email
 # configuration of mail
 # app.config['MAIL_SERVER']='sirakis.ng.gmail.com'
