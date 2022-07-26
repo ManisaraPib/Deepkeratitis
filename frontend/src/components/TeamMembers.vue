@@ -4,7 +4,7 @@
       <hr class="line-team solid" />
       <div class="line-team text fs-5 fw-bold text-dark mb-2">Team Members</div>
       <div class="btn-group" role="group">
-        <button class="btn" :class="{ 'btnd': developer, 'btnw': contributor }" @click="Developer()">Deverloper</button>
+        <button class="btn" :class="{ 'btnd': developer, 'btnw': contributor }" @click="Developer()">Developer</button>
         <button class="btn" :class="{ 'btnd': contributor, 'btnw': developer }"
           @click="Contributor()">Contributor</button>
       </div>
