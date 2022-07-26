@@ -6,7 +6,7 @@ from flask_restful import Api,Resource,abort
 from flask import Flask, request,jsonify,json
 from flask_cors import CORS, cross_origin
 from flask import send_file
-from flask_mail import Mail, message
+#from flask_mail import Mail, message
 import smtplib
 import os
 import uuid
@@ -56,6 +56,7 @@ def contact():
     server.starttls()
     server.login("powerpufffy@gmail.com", "pufffypowerhds2")
     server.sendmail("powerpufffy@gmail.com", email, reply_message)
+    print ("email sent")
 
 #Sending an email
 # configuration of mail

@@ -1,10 +1,7 @@
 #client side
 
-import requests URL= "http://127.0.0.1:5000/upload"
-response= requests.get(URL)
 
-import requests URL= "http://127.0.0.1:5000/contact"
-response= requests.get(URL)
 
-#To test
-#print(response.json())
+lines = ['Readme', 'How to write text files in Python']
+with open('readme.txt', 'w') as f:
+    f.writelines(lines)
