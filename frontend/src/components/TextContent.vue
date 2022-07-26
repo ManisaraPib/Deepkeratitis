@@ -4,7 +4,7 @@
       <div class="fs-4 fw-bolder text-dark">Deepkeratitis</div>
       <div class="fs-6 fw-bold text-dark mb-2">in version 1</div>
       <div class="fs-6 fw-light text-dark sec-text">
-        The Deepkeratitis project builds AI to classify corneal infections
+        The Deep Keratitis project builds AI to classify corneal infections
         between fungal keratitis and bacterial keratitis using deep learning
       </div>
     </div>
@@ -24,6 +24,7 @@ export default {
 .text-box {
   margin-left: 60px;
 }
+
 .my-box {
   padding: 20px;
   background: #dddddd;
