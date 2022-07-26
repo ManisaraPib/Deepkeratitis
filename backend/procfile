@@ -1,0 +1,1 @@
+web: gunicorn DK_model:app
