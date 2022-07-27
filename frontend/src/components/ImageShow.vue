@@ -76,6 +76,7 @@ export default {
       }
       this.createImage(file[0]);
       this.fileUpLoad = file[0];
+      this.haveImg = true;
     },
     onFileDrop(e) {
       this.active();
@@ -86,13 +87,9 @@ export default {
       }
       this.createImage(file[0]);
       this.fileUpLoad = file[0];
+      this.haveImg = true;
     },
     createImage(file) {
-      if (!file.type.match('image.*')) {
-        alert('Select an image');
-        return;
-      }
-      this.haveImg = true;
       var reader = new FileReader();
       reader.onload = (e) => {
         this.image = e.target.result;
