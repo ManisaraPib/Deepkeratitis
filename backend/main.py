@@ -66,7 +66,19 @@ def contact():
         print("here2")
         server.login("powerpufffy@gmail.com", "cpjlcidxhdvxeysc")
         server.sendmail("powerpufffy@gmail.com", email, message, name)
-    return (log.json)
+    
+        # Email send response
+        response = json.loads(r.text)
+        if response['ErrorCode'] == 0:
+   	        resData = {"Status" : "Service Unavailable  (503)","message" : "fail"}
+            return resData
+        else:
+            resData = {"Status" : "OK (200)","message" : "success"}
+            return resData
+            
+
+
+    
 
 # @app.route('/test', methods=['POST'])
 # def contact():
