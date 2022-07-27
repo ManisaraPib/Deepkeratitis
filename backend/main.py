@@ -68,13 +68,13 @@ def contact():
         server.sendmail("powerpufffy@gmail.com", email, message, name)
     
         # Email send response
-        response = json.loads(r.text)
-        if response['ErrorCode'] == 0:
-   	        resData = {"Status" : "Service Unavailable  (503)","message" : "fail"}
-            return resData
-        else:
-            resData = {"Status" : "OK (200)","message" : "success"}
-            return resData
+        # response = json.loads(r.text)
+        # if response['ErrorCode'] == 0:
+   	    #     resData = {"Status" : "Service Unavailable  (503)","message" : "fail"}
+        #        return resData
+        # else:
+        #     resData = {"Status" : "OK (200)","message" : "success"}
+        #     return resData
             
 
 
@@ -153,19 +153,6 @@ if __name__ == "__main__":
 
 
           
-
-
-
-
-
-
-
-
-
-
-
-
-
 # @app.route("/dkmodel", methods= ["GET"])
 # def predDK():
 
