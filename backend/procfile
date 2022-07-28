@@ -1,1 +1,2 @@
-web: gunicorn DK_model:app
+web: python main.py
+app: npm start
