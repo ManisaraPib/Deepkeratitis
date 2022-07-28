@@ -1,3 +1,2 @@
-web: gunicorn app:app
-# web: python main.py
-# app: npm run serve
+ web: python main.py
+ app: npm run serve
