@@ -13,7 +13,7 @@ import uuid
 #from grpc import server
 
 # Model
-# from model import ....
+# import 
 
 
 from zmq import Message
@@ -45,9 +45,9 @@ def upload_file():
         path = os.path.join(app.config['UPLOAD_FOLDER'], file1.filename)
         file1.save(path)
         print(path)
-        # res = ModelFunction(path)
-        # return res
-        return path # If model file finish plz uncomment this and delete both of the line above
+        res = ModelFunction(path)
+        return res
+        # return path # If model file finish plz uncomment this and delete both of the line above
 
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
