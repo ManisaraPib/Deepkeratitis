@@ -17,17 +17,18 @@ from tensorflow.keras.models import load_model
 from IPython.display import Image as imgdisp, display
 
 
-img = '............'
+img = '.......ใส่ path........'
 
-model = load_model('.................')
+model = load_model('.......ใส่ path..........')
 
 
 
-####################### Predict #############################
+################################# Predict ########################################
 
 class_dict ={
         1 : "Bacterial Keratitis",
         0 : "Fungal Keratits"}
+
 
 def pred_image(img_path,model):
   img = Image.open(img_path).resize((256,256)) #target_size must agree with what the trained model expects
@@ -44,9 +45,12 @@ def pred_image(img_path,model):
   )
   return prediction
 
+###### คำสั่งเวลาเรียกไปใช้
+#####>>>>>>>>>>    pred_image(img,model)   <<<<<<<<<<<
 
 
-####################### Grad-Cam #############################
+
+################################## Grad-Cam ######################################
 
 def get_img_array(img_path, size):
     # `img` is a PIL image of size 299x299
@@ -142,6 +146,11 @@ def save_and_display_gradcam(img_path, heatmap, cam_path="cam.jpg", alpha=0.4):
 
     # Display Grad CAM
     display(imgdisp(cam_path))
+
+
+###### คำสั่งเวลาเรียกไปใช้ มี 2 บรรทัด
+#>>>>>>>>>>   heatmap = generate_heatmap(img,"block5_conv3")       <<<<<<<<<<<
+#>>>>>>>>>>   save_and_display_gradcam(img, heatmap)               <<<<<<<<<<<
 
 
 
