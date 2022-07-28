@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "postinstall": "npm run build",
-  "start": "node frontend/src/router/server.js",
+  "start": "npm run serve",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
