@@ -1,13 +1,14 @@
 import pandas as pd
 import numpy as np
 import cv2                     
-import os                  
-from tqdm import tqdm  
-import random 
-from PIL import Image 
+import os 
+import random                  
 import tensorflow as tf
+import matplotlib.pyplot as plt
+import matplotlib.cm as cm
+from tqdm import tqdm  
+from PIL import Image 
 from tensorflow.keras.preprocessing import image
-import matplotlib.pyplot as plt 
 from random import shuffle
 from tensorflow.keras import Model, layers
 from numpy import loadtxt
@@ -15,24 +16,37 @@ from tensorflow.keras.applications.imagenet_utils import preprocess_input, decod
 from tensorflow.keras.models import load_model
 from IPython.display import Image as imgdisp, display
 
-import matplotlib.pyplot as plt
-import matplotlib.cm as cm
-import tensorflow as tf
+
+img = '............'
+
+model = load_model('.................')
 
 
-img_path = '............'
 
-
+####################### Predict #############################
 
 class_dict ={
         1 : "Bacterial Keratitis",
         0 : "Fungal Keratits"}
 
+def pred_image(img_path,model):
+  img = Image.open(img_path).resize((256,256)) #target_size must agree with what the trained model expects
+  # Preprocessing the image
+  img = image.img_to_array(img)
+  img = np.expand_dims(img, axis=0)
+  img = img.astype('float32')/255
+ 
+  preds = model.predict(img)[0]
+  prediction = sorted(
+      [(class_dict[i], round(j*100, 2)) for i, j in enumerate(preds)],
+      reverse=True,
+      key=lambda x: x[1]
+  )
+  return prediction
 
 
-model = load_model('baseline_model_VGG16.h5')
 
-
+####################### Grad-Cam #############################
 
 def get_img_array(img_path, size):
     # `img` is a PIL image of size 299x299
@@ -43,7 +57,6 @@ def get_img_array(img_path, size):
     # of size (1, 299, 299, 3)
     array = np.expand_dims(array, axis=0)
     return array
-
 
 
 def make_gradcam_heatmap(img_array, model, last_conv_layer_name, pred_index=None):
@@ -103,6 +116,7 @@ def save_and_display_gradcam(img_path, heatmap, cam_path="cam.jpg", alpha=0.4):
     # Load the original image
     img = tf.keras.preprocessing.image.load_img(img_path)
     img = tf.keras.preprocessing.image.img_to_array(img)
+    
 
     # Rescale heatmap to a range 0-255
     heatmap = np.uint8(255 * heatmap)
@@ -128,21 +142,9 @@ def save_and_display_gradcam(img_path, heatmap, cam_path="cam.jpg", alpha=0.4):
 
     # Display Grad CAM
     display(imgdisp(cam_path))
-    
-    heatmap = generate_heatmap(img,"block5_conv3")
-    grad_heat = save_and_display_gradcam(img, heatmap)
-
-    return grad_heat
 
 
-def pred_image(img_path,grad_heat,model):
-  img = Image.open(img_path).resize((256,256)) #target_size must agree with what the trained model expects!!
-  img = grad_heat(img)
 
-  preds = model.predict(img)[0]
-  prediction = sorted(
-      [(class_dict[i], round(j*100, 2)) for i, j in enumerate(preds)],
-      reverse=True,
-      key=lambda x: x[1]
-  )
-  return prediction
+
+
+
