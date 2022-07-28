@@ -1,2 +1,2 @@
- web: npm run serve
- app: python main.py
+ web: node frontend/src/router/server.js
+ app: python backend/main.py
