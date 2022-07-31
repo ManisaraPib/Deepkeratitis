@@ -1,11 +1,9 @@
 #Server Side
 from pyexpat import model
 from urllib import response
-from flask import Flask
+from flask import Flask, request,jsonify,json,send_file
 from flask_restful import Api,Resource,abort
-from flask import Flask, request,jsonify,json
 from flask_cors import CORS, cross_origin
-from flask import send_file
 #from flask_mail import Mail, message
 import smtplib
 import os
