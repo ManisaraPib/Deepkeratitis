@@ -52,20 +52,25 @@ def upload_file():
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
     if request.method == 'POST':
-        name = request.files.form.name #receive name from front end 
-        email = request.files.form.email
-        message = request.files.form.message
-        print(str(name))
-        print(str(email))
-        print(str(message))
+        print("sending an email...")
+        data = request.json
+
+
+        #d = request.form.to_dict()
+        # email = request.data.email
+        # message = request.data.message
+        print(data)
+        name = data["name"]
+        email = data["email"]
+        message = data["message"]
 
         #reply_message = "Your contact have been sent"
         server = smtplib.SMTP("smtp.gmail.com", 5000)
-        print("here1")
         server.starttls()
-        print("here2")
         server.login("powerpufffy@gmail.com", "cpjlcidxhdvxeysc")
         server.sendmail("powerpufffy@gmail.com", email, message, name)
+
+        print('sent !')
     
         # Email send response
         # response = json.loads(r.text)

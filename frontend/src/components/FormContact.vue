@@ -3,7 +3,12 @@
     <div class="fs-3 fw-bolder text-center mb-4">Contact us</div>
     <div><input type="text" placeholder="Name" v-model="form.name" /></div>
     <div>
-      <input type="email" placeholder="Email" v-model="form.email" :class="{ 'red-border': wrongEmail }" />
+      <input
+        type="email"
+        placeholder="Email"
+        v-model="form.email"
+        :class="{ 'red-border': wrongEmail }"
+      />
     </div>
     <div>
       <textarea placeholder="Message" v-model="form.message"></textarea>
