@@ -17,7 +17,6 @@ from email.mime.text import MIMEText
 # Model
 # import 
 
-
 from zmq import Message
 #from flask_sqlalchemy import SQLAlchemy
 
@@ -67,8 +66,8 @@ def contact():
         email = data["email"]
         message = data["message"]
 
-
-        mail_content = message
+# to clients
+        mail_content = " Thank you. We have received your information. We will contact you back soon."
         #The mail addresses and password
         sender_address = 'powerpufffy@gmail.com'
         sender_pass = 'cpjlcidxhdvxeysc'
@@ -87,7 +86,29 @@ def contact():
         text = message.as_string()
         session.sendmail(sender_address, receiver_address, text)
         session.quit()
-        print('Mail Sent')
+        print('Mail Sent to customer')
+
+#to Staff
+        mail_content = str(message)+ "customer email : " +  str(email)
+        #The mail addresses and password
+        sender_address = 'powerpufffy@gmail.com'
+        sender_pass = 'cpjlcidxhdvxeysc'
+        receiver_address = "gutto.juuung@gmail.com"
+        #Setup the MIME
+        message = MIMEMultipart()
+        message['From'] = sender_address
+        message['To'] = receiver_address
+        message['Subject'] = 'Want to contact '+ str(name)   #The subject line
+        #The body and the attachments for the mail
+        message.attach(MIMEText(mail_content, 'plain'))
+        #Create SMTP session for sending the mail
+        session = smtplib.SMTP('smtp.gmail.com', 587) #use gmail with port
+        session.starttls() #enable security
+        session.login(sender_address, sender_pass) #login with mail_id and password
+        text = message.as_string()
+        session.sendmail(sender_address, receiver_address, text)
+        session.quit()
+        print('Mail Sent to staff')
 
         res = {"message" : "success"}
         # print(res.data.message)
