@@ -47,9 +47,10 @@ def upload_file():
         path = os.path.join(app.config['UPLOAD_FOLDER'], file1.filename)
         file1.save(path)
         print(path)
-        res = ModelFunction(path)
-        return res
+        # res = ModelFunction(path)
+        # return res
         # return path # If model file finish plz uncomment this and delete both of the line above
+        return ""
 
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
