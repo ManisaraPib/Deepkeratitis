@@ -10,6 +10,8 @@ from flask import send_file
 import smtplib
 import os
 import uuid
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 #from grpc import server
 
 # Model
@@ -64,26 +66,32 @@ def contact():
         email = data["email"]
         message = data["message"]
 
-        #reply_message = "Your contact have been sent"
-        server = smtplib.SMTP("smtp.gmail.com", 5000)
-        server.starttls()
-        server.login("powerpufffy@gmail.com", "cpjlcidxhdvxeysc")
-        server.sendmail("powerpufffy@gmail.com", email, message, name)
 
-        print('sent !')
-    
-        # Email send response
-        # response = json.loads(r.text)
-        # if response['ErrorCode'] == 0:
-   	    #     resData = {"Status" : "Service Unavailable  (503)","message" : "fail"}
-        #        return resData
-        # else:
-        #     resData = {"Status" : "OK (200)","message" : "success"}
-        #     return resData
-            
+        mail_content = message
+        #The mail addresses and password
+        sender_address = 'powerpufffy@gmail.com'
+        sender_pass = 'cpjlcidxhdvxeysc'
+        receiver_address = str(email)
+        #Setup the MIME
+        message = MIMEMultipart()
+        message['From'] = sender_address
+        message['To'] = receiver_address
+        message['Subject'] = 'Response email to '+ str(name)   #The subject line
+        #The body and the attachments for the mail
+        message.attach(MIMEText(mail_content, 'plain'))
+        #Create SMTP session for sending the mail
+        session = smtplib.SMTP('smtp.gmail.com', 587) #use gmail with port
+        session.starttls() #enable security
+        session.login(sender_address, sender_pass) #login with mail_id and password
+        text = message.as_string()
+        session.sendmail(sender_address, receiver_address, text)
+        session.quit()
+        print('Mail Sent')
 
-
-    
+        res = {"message" : "success"}
+        # print(res.data.message)
+        print(res)
+        return  jsonify(res)
 
 # @app.route('/test', methods=['POST'])
 # def contact():
