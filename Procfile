@@ -1,1 +1,1 @@
-app: cd frontend && npm run serve
+app: cd frontend && npm run start
