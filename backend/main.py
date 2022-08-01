@@ -1,19 +1,22 @@
 #Server Side
 from pyexpat import model
 from urllib import response
-from flask import Flask, request,jsonify,json,send_file
+from flask import Flask
 from flask_restful import Api,Resource,abort
+from flask import Flask, request,jsonify,json
 from flask_cors import CORS, cross_origin
+from flask import send_file
 #from flask_mail import Mail, message
 import smtplib
 import os
 import uuid
-import baseline_model_VGG16 
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from baseline_model_VGG16 import * 
 #from grpc import server
 
 # Model
 # import 
-
 
 from zmq import Message
 #from flask_sqlalchemy import SQLAlchemy
@@ -44,40 +47,74 @@ def upload_file():
         path = os.path.join(app.config['UPLOAD_FOLDER'], file1.filename)
         file1.save(path)
         print(path)
-        res = baseline_model_VGG16.h5(path)
+        res = pred_image(path)
         return res
         return path # If model file finish plz uncomment this and delete both of the line above
+        #return "" #if not
 
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
     if request.method == 'POST':
-        name = request.files.form.name #receive name from front end 
-        email = request.files.form.email
-        message = request.files.form.message
-        print(str(name))
-        print(str(email))
-        print(str(message))
-
-        #reply_message = "Your contact have been sent"
-        server = smtplib.SMTP("smtp.gmail.com", 5000)
-        print("here1")
-        server.starttls()
-        print("here2")
-        server.login("powerpufffy@gmail.com", "cpjlcidxhdvxeysc")
-        server.sendmail("powerpufffy@gmail.com", email, message, name)
-    
-        # Email send response
-        # response = json.loads(r.text)
-        # if response['ErrorCode'] == 0:
-   	    #     resData = {"Status" : "Service Unavailable  (503)","message" : "fail"}
-        #        return resData
-        # else:
-        #     resData = {"Status" : "OK (200)","message" : "success"}
-        #     return resData
-            
+        print("sending an email...")
+        data = request.json
 
 
-    
+        #d = request.form.to_dict()
+        # email = request.data.email
+        # message = request.data.message
+        print(data)
+        name = data["name"]
+        email = data["email"]
+        message = data["message"]
+
+# to clients
+        mail_content = " Thank you. We have received your information. We will contact you back soon."
+        #The mail addresses and password
+        sender_address = 'powerpufffy@gmail.com'
+        sender_pass = 'cpjlcidxhdvxeysc'
+        receiver_address = str(email)
+        #Setup the MIME
+        message = MIMEMultipart()
+        message['From'] = sender_address
+        message['To'] = receiver_address
+        message['Subject'] = 'Response email to '+ str(name)   #The subject line
+        #The body and the attachments for the mail
+        message.attach(MIMEText(mail_content, 'plain'))
+        #Create SMTP session for sending the mail
+        session = smtplib.SMTP('smtp.gmail.com', 587) #use gmail with port
+        session.starttls() #enable security
+        session.login(sender_address, sender_pass) #login with mail_id and password
+        text = message.as_string()
+        session.sendmail(sender_address, receiver_address, text)
+        session.quit()
+        print('Mail Sent to customer')
+
+#to Staff
+        mail_content = str(message)+ "customer email : " +  str(email)
+        #The mail addresses and password
+        sender_address = 'powerpufffy@gmail.com'
+        sender_pass = 'cpjlcidxhdvxeysc'
+        receiver_address = "gutto.juuung@gmail.com"
+        #Setup the MIME
+        message = MIMEMultipart()
+        message['From'] = sender_address
+        message['To'] = receiver_address
+        message['Subject'] = 'Want to contact '+ str(name)   #The subject line
+        #The body and the attachments for the mail
+        message.attach(MIMEText(mail_content, 'plain'))
+        #Create SMTP session for sending the mail
+        session = smtplib.SMTP('smtp.gmail.com', 587) #use gmail with port
+        session.starttls() #enable security
+        session.login(sender_address, sender_pass) #login with mail_id and password
+        text = message.as_string()
+        session.sendmail(sender_address, receiver_address, text)
+        session.quit()
+        print('Mail Sent to staff')
+
+        res = {"message" : "success"}
+        # print(res.data.message)
+        print(res)
+        return  jsonify(res)
 
 # @app.route('/test', methods=['POST'])
 # def contact():
