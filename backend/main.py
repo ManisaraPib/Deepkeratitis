@@ -8,6 +8,7 @@ from flask_cors import CORS, cross_origin
 import smtplib
 import os
 import uuid
+import baseline_model_VGG16 
 #from grpc import server
 
 # Model
@@ -43,9 +44,9 @@ def upload_file():
         path = os.path.join(app.config['UPLOAD_FOLDER'], file1.filename)
         file1.save(path)
         print(path)
-        res = ModelFunction(path)
+        res = baseline_model_VGG16.h5(path)
         return res
-        # return path # If model file finish plz uncomment this and delete both of the line above
+        return path # If model file finish plz uncomment this and delete both of the line above
 
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
