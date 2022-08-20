@@ -12,17 +12,19 @@ import os
 import uuid
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-#from grpc import server
 
-# Model
-# import 
-
+# import model
+from DK_predict import generate_heatmap, save_and_display_gradcam, pred
 from zmq import Message
 #from flask_sqlalchemy import SQLAlchemy
 
+# define image path
+path = ""
+model = 'baseline_model_VGG16.h5'
+
 app = Flask(__name__)
 api= Api(app)
-UPLOAD_FOLDER = "backend/img"
+UPLOAD_FOLDER = "img"
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 CORS(app)
 CORS(app, resources={r'/*': {'origins': '*'}},CORS_SUPPORTS_CREDENTIALS = True)
@@ -37,15 +39,21 @@ def Hi():
 #Upload function
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
-    print("uploading...")
+    
     if request.method == 'POST':
+        print("uploading...")
         # if 'dropzonefile' not in request.files:
         #     print ('there is no file from "dropzonefile"')
         #     return
         file1 = request.files["image"]
         path = os.path.join(app.config['UPLOAD_FOLDER'], file1.filename)
         file1.save(path)
-        print(path)
+        print("Save image to: " + str(path))
+        result = pred(path) 
+        heatmap = generate_heatmap(path,"block5_conv3")
+        res = save_and_display_gradcam(path, heatmap)
+        print(result)
+        print(res)
         # res = ModelFunction(path)
         # return res
         # return path # If model file finish plz uncomment this and delete both of the line above
@@ -179,6 +187,7 @@ def contact():
 #         response = {"result": str(uuid.uuid4()), "errors": errors } #if model doesnt work
 #     #response in 2 possibility
 #     return jsonify(response) #reponse in json file to send back to the person who send the request 
+
 
 
 # Main
