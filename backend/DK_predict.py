@@ -151,6 +151,8 @@ def save_and_display_gradcam(img_path, heatmap, cam_path="cam.jpg", alpha=0.4):
     # Display Grad CAM
     display(imgdisp(cam_path))
 
+    return cam_path
+
 
 ###### คำสั่งเวลาเรียกไปใช้ มี 2 บรรทัด
 #>>>>>>>>>>   heatmap = generate_heatmap(img,"block5_conv3")       <<<<<<<<<<<

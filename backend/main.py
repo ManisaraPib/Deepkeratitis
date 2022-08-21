@@ -6,6 +6,7 @@ from flask_restful import Api,Resource,abort
 from flask import Flask, request,jsonify,json
 from flask_cors import CORS, cross_origin
 from flask import send_file
+from PIL import Image
 #from flask_mail import Mail, message
 import smtplib
 import os
@@ -51,13 +52,21 @@ def upload_file():
         print("Save image to: " + str(path))
         result = pred(path) 
         heatmap = generate_heatmap(path,"block5_conv3")
-        res = save_and_display_gradcam(path, heatmap)
+        pred_imagePath = save_and_display_gradcam(path, heatmap)
         print(result)
+        print(pred_imagePath)
+        # pred_image = Image.open(pred_imagePath)
+
+        res = {"image" : pred_imagePath}
+        # print(res.data.message)
         print(res)
+        return send_file(pred_imagePath, mimetype='image/gif')
+
+
         # res = ModelFunction(path)
         # return res
         # return path # If model file finish plz uncomment this and delete both of the line above
-        return ""
+        return res
 
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
