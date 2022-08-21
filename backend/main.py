@@ -53,19 +53,13 @@ def upload_file():
         result = pred(path) 
         heatmap = generate_heatmap(path,"block5_conv3")
         pred_imagePath = save_and_display_gradcam(path, heatmap)
+
+        # For debug
         print(result)
         print(pred_imagePath) #Path of the predicted image
 
-        data =  {"myResult" : result,"file": "cam.jpg"}
-
-
+        data =  {"myResult" : result,"file": "pred_imagePath"}
         return data
-
-
-        # res = ModelFunction(path)
-        # return res
-        # return path # If model file finish plz uncomment this and delete both of the line above
-        return res
 
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
