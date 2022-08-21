@@ -54,13 +54,12 @@ def upload_file():
         heatmap = generate_heatmap(path,"block5_conv3")
         pred_imagePath = save_and_display_gradcam(path, heatmap)
         print(result)
-        print(pred_imagePath)
-        # pred_image = Image.open(pred_imagePath)
+        print(pred_imagePath) #Path of the predicted image
 
-        res = {"image" : pred_imagePath}
-        # print(res.data.message)
-        print(res)
-        return send_file(pred_imagePath, mimetype='image/gif')
+        data =  {"myResult" : "predict message (xx%)","file": "backend\cam.jpg"}
+
+
+        return data
 
 
         # res = ModelFunction(path)
