@@ -56,7 +56,7 @@ def upload_file():
         print(result)
         print(pred_imagePath) #Path of the predicted image
 
-        data =  {"myResult" : "predict message (xx%)","file": "backend\cam.jpg"}
+        data =  {"myResult" : result,"file": "cam.jpg"}
 
 
         return data
