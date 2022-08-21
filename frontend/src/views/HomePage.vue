@@ -33,18 +33,10 @@
         <div class="button-center">
           <button class="predict-button" @click="back">
             Back
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              fill="currentColor"
-              class="bi bi-arrow-left-short"
-              viewBox="0 0.5 16 16"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"
-              />
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+              class="bi bi-arrow-left-short" viewBox="0 0.5 16 16">
+              <path fill-rule="evenodd"
+                d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z" />
             </svg>
           </button>
         </div>
@@ -69,9 +61,9 @@ export default {
     };
   },
   methods: {
-    setImage(image, result) {
+    setImage(image, image2, result) {
       this.imageBefore = image;
-      this.imageAfter = image;
+      this.imageAfter = image2;
       this.result = result;
     },
     back() {
@@ -89,20 +81,25 @@ export default {
   width: 18%;
   display: inline-block;
 }
+
 .left64 {
   width: 60%;
   display: inline-block;
 }
+
 .my-content {
   border: 1px solid black;
 }
+
 .my-result {
   color: red;
 }
+
 .my-img {
   max-height: 400px;
   width: 100%;
 }
+
 .my-img-l {
   float: right;
 }
@@ -127,6 +124,7 @@ export default {
   width: 120px;
   margin: auto;
 }
+
 .predict-button {
   height: 45px;
   width: 120px;
@@ -146,9 +144,11 @@ export default {
   .grap-cam {
     display: none;
   }
+
   .grap-cam-short {
     display: block;
   }
+
   .grap-cam-very-short {
     display: none;
   }
@@ -158,9 +158,11 @@ export default {
   .grap-cam {
     display: none;
   }
+
   .grap-cam-short {
     display: none;
   }
+
   .grap-cam-very-short {
     display: block;
   }

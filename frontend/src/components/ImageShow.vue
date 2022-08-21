@@ -121,7 +121,7 @@ export default {
           .then((res) => {
             console.log(res);
             this.predicting = false;
-            this.$emit("myImage", this.image, res.data.myResult);
+            this.$emit("myImage", this.image, res.data.file, res.data.myResult);
           })
           .catch(() => {
             this.predicting = false;
