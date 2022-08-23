@@ -58,7 +58,7 @@ def upload_file():
         print(result)
         print(pred_imagePath) #Path of the predicted image
 
-        data =  {"myResult" : result,"file": "pred_imagePath"}
+        data =  {"myResult" : "result","image": pred_imagePath}
         return data
 
 @app.route('/contact', methods=['GET', 'POST'])
