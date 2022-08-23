@@ -11,6 +11,7 @@ from PIL import Image
 import smtplib
 import os
 import uuid
+import asyncio
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
@@ -50,15 +51,14 @@ def upload_file():
         path = os.path.join(app.config['UPLOAD_FOLDER'], file1.filename)
         file1.save(path)
         print("Save image to: " + str(path))
-        result = pred(path) 
+        result = pred(path)
         heatmap = generate_heatmap(path,"block5_conv3")
         pred_imagePath = save_and_display_gradcam(path, heatmap)
-
         # For debug
         print(result)
         print(pred_imagePath) #Path of the predicted image
 
-        data =  {"myResult" : "result","image": pred_imagePath}
+        data =  {"myResult" : result,"file": pred_imagePath}
         return data
 
 @app.route('/contact', methods=['GET', 'POST'])
