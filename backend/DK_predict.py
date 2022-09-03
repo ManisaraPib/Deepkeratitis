@@ -15,6 +15,7 @@ from numpy import loadtxt
 from tensorflow.keras.applications.imagenet_utils import preprocess_input, decode_predictions
 from tensorflow.keras.models import load_model
 from IPython.display import Image as imgdisp, display
+import pathlib
 
 
 # img = '.......ใส่ path........'
@@ -120,11 +121,10 @@ def generate_heatmap(img_path,last_conv_layer_name):
 
 
 
-def save_and_display_gradcam(img_path, heatmap, cam_path="img/result.jpg", alpha=0.4):
+async def save_and_display_gradcam(img_path, heatmap, cam_path="img/result.jpg", alpha=0.4):
     # Load the original image
     img = tf.keras.preprocessing.image.load_img(img_path)
     img = tf.keras.preprocessing.image.img_to_array(img)
-    
 
     # Rescale heatmap to a range 0-255
     heatmap = np.uint8(255 * heatmap)
@@ -144,6 +144,10 @@ def save_and_display_gradcam(img_path, heatmap, cam_path="img/result.jpg", alpha
     # Superimpose the heatmap on original image
     superimposed_img = jet_heatmap * alpha + img
     superimposed_img = tf.keras.preprocessing.image.array_to_img(superimposed_img)
+
+    desFile = pathlib.Path(cam_path)
+    if desFile.exists ():
+        os.remove(cam_path)
 
     # Save the superimposed image
     superimposed_img.save(cam_path)

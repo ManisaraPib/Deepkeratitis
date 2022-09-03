@@ -6,8 +6,11 @@ from flask_restful import Api,Resource,abort
 from flask import Flask, request,jsonify,json
 from flask_cors import CORS, cross_origin
 from flask import send_file
+import pathlib
 from PIL import Image
 import cv2
+import time
+import glob
 #from flask_mail import Mail, message
 import smtplib
 import os
@@ -39,32 +42,29 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 def Hi():
     return "Test"
 
+
 #Upload function
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
-    
     if request.method == 'POST':
         print("uploading...")
-        # if 'dropzonefile' not in request.files:
-        #     print ('there is no file from "dropzonefile"')
-        #     return
         file1 = request.files["image"]
-        print(type(file1))
+        file1.filename = "images.jpeg"
         path = os.path.join(app.config['UPLOAD_FOLDER'], file1.filename)
+        desFile = pathlib.Path(path)
+        if desFile.exists ():
+            os.remove(path)
         file1.save(path)
         print("Save image to: " + str(path))
-
         # Call model
         result = pred(path)
         heatmap = generate_heatmap(path,"block5_conv3")
-        pred_imagePath = save_and_display_gradcam(path, heatmap)
-        # For debug
-        result = "test"
+        pred_imagePath = asyncio.run(save_and_display_gradcam(path, heatmap))
         print(result)
-        pred_imagePath = "../../../backend/" + str(pred_imagePath)
-        # pred_imagePath = "/result.jpg"
-        # resultImg = cv2.imread('g4g.png')
+
+        pred_imagePath = "../../../backend/" + str(pred_imagePath) #Path of image result
         print(pred_imagePath) #Path of the predicted image
+        time.sleep(1) # Fix picture preloading of frontend
         data =  {"myResult" : result,"file": pred_imagePath}
         return data
 

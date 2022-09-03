@@ -25,7 +25,7 @@
           <div class="text-center fs-5 fw-light grap-cam-very-short">
             Grad cam
           </div>
-          <img :src="imageAfter" class="my-3 my-img" />
+
           <img src="../../../backend/img/result.jpg" class="my-3 my-img" />
         </div>
       </div>
