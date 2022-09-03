@@ -7,6 +7,7 @@ from flask import Flask, request,jsonify,json
 from flask_cors import CORS, cross_origin
 from flask import send_file
 from PIL import Image
+import cv2
 #from flask_mail import Mail, message
 import smtplib
 import os
@@ -48,16 +49,22 @@ def upload_file():
         #     print ('there is no file from "dropzonefile"')
         #     return
         file1 = request.files["image"]
+        print(type(file1))
         path = os.path.join(app.config['UPLOAD_FOLDER'], file1.filename)
         file1.save(path)
         print("Save image to: " + str(path))
+
+        # Call model
         result = pred(path)
         heatmap = generate_heatmap(path,"block5_conv3")
         pred_imagePath = save_and_display_gradcam(path, heatmap)
         # For debug
+        result = "test"
         print(result)
+        pred_imagePath = "../../../backend/" + str(pred_imagePath)
+        # pred_imagePath = "/result.jpg"
+        # resultImg = cv2.imread('g4g.png')
         print(pred_imagePath) #Path of the predicted image
-
         data =  {"myResult" : result,"file": pred_imagePath}
         return data
 

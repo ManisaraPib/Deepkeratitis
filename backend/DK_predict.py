@@ -120,7 +120,7 @@ def generate_heatmap(img_path,last_conv_layer_name):
 
 
 
-def save_and_display_gradcam(img_path, heatmap, cam_path="cam.jpg", alpha=0.4):
+def save_and_display_gradcam(img_path, heatmap, cam_path="img/result.jpg", alpha=0.4):
     # Load the original image
     img = tf.keras.preprocessing.image.load_img(img_path)
     img = tf.keras.preprocessing.image.img_to_array(img)
